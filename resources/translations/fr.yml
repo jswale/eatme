@@ -1,0 +1,134 @@
+SiteName: EatMe
+SiteTitle: EatMe - Pour ceux qui ont faim !
+
+# Commons
+User: Utilisateur
+Users: Utilisateurs
+Tag: Mot-clé
+Tags: Mots-clés
+Category: Catégorie
+Categories: Catégories
+Recipie: Recette
+Recipies: Recettes
+Author: Auteur
+Authors: Auteurs
+Homepage: Accueil
+Login: Identification
+Advanced Search: Recherche par ingrédients
+Admin: Administration
+Search: Rechercher
+Validate: Valider
+Hour: heure
+Hour.short: h
+Hours: heures
+Minute: minute
+Minutes: minutes
+Minute.short: min
+Tablespoon: c. à soupe
+Teaspoon: c. à café
+
+# Entity Fields
+User.Field.name: Nom
+User.Field.username: Identifiant
+User.Field.password: Mot de passe
+User.Field.role.admin: Administrateur
+Recipie.Field.name: Nom
+Recipie.Field.description: Description
+Recipie.Field.quantity: Ingrédients pour
+Recipie.Field.timers: Durées
+Recipie.Field.category: Catégorie
+Recipie.Field.ingredientGroups: Groupe d'ingrédients
+Recipie.Field.ingredients: Ingrédients
+Recipie.Field.steps: Etapes de réalisation
+Recipie.Field.images: Images
+Category.Field.name: Nom
+Tag.Field.name: Nom
+Image.Field.name: Description
+Image.Field.file: Fichier
+Timer.Field.name: Intitulé
+Timer.Field.duration: Durée
+Step.Field.name: Description
+Ingredient.Field.name: Ingrédient
+Ingredient.Field.quantity: Quantité
+Ingredient.Field.unit: Unité
+
+Error.Password.mismatch: Les mots de passe ne correspondent pas
+
+Menu.New_Recipie: Nouvelle recette
+Menu.Logout: Déconnexion
+Menu.MyAccount: Mon compte
+
+MyAccount.Field.password.help: Ne renseignez le mot de passe que pour en changer.
+
+Login.Username: Identifiant
+Login.Password: Mot de passe
+Login.rememberMe: Se souvenir de moi
+
+Index.Hungry: Une petite faim ?
+Index.RecipieStats: Consultez l'une des <strong>%count%</strong> recettes disponibles
+
+Index.QuickSearch: Recherche rapide
+Index.View recipies: Parcourir toutes les recettes
+Index.View random recipie: Voir une recette au hasard
+Index.Best Categories: Les meilleures categories
+Index.Best Tags: Les %count% meilleurs mots-clés
+
+Category.Create.title: Création
+Category.Edit.title: Modification
+Category.List.none: Il n'y a actuellement aucune catégorie d'enregistrée
+Category.List.new: Ajouter une nouvelle catégorie
+
+User.CreateOrUpdate.title.create: Création
+User.CreateOrUpdate.title.update: Modification
+User.CreateOrUpdate.Field.password.repeat: Confirmer le mot de passe
+User.List.none: Il n'y a actuellement aucun utilisateur d'enregistré
+User.List.new: Ajouter une nouvel utilisateur
+
+Tag.Create.title: Création
+Tag.Edit.title: Modification
+Tag.List.none: Il n'y a actuellement aucun mot-clé d'enregistré
+Tag.List.new: Ajouter une nouveau mot clé
+
+Recipie.List.publishedOn: Publié le
+Recipie.List.publichedBy: par
+Recipie.List.none: Désolé, aucune recette ne correspond à votre recherche
+
+Recipie.Detail.moreInfo: Informations générales
+Recipie.Detail.publishedOn: Publié le
+Recipie.Detail.publichedBy: par
+Recipie.Detail.updateRatio: Modifier les quantités
+Recipie.Detail.defaultValues: Valeurs par défaut
+Recipie.Detail.update: Modifier la recette
+Recipie.Detail.delete: Supprimer définitivement cette recette
+
+Recipie.CreateOrUpdate.title.create: Création
+Recipie.CreateOrUpdate.title.update: Modification
+Recipie.CreateOrUpdate.Field.quantity.help: "Ex: 2 personnes, 40 biscuits"
+Recipie.CreateOrUpdate.Field.tags.help: Séparer les valeurs par des virgules
+Recipie.CreateOrUpdate.Field.Image.name.helper: Légende de l'image
+Recipie.CreateOrUpdate.Field.images.add: Ajouter une nouvelle image
+Recipie.CreateOrUpdate.Field.timers.add: Ajouter une nouvelle durée
+Recipie.CreateOrUpdate.Field.ingredientGroups.add: Ajouter une nouveau groupe d'ingrédients
+Recipie.CreateOrUpdate.Field.stepGroups.add: Ajouter un nouveau groupe d'étapes
+Recipie.CreateOrUpdate.Field.Timer.name.default.0: Préparation
+Recipie.CreateOrUpdate.Field.Timer.name.default.1: Cuisson
+Recipie.CreateOrUpdate.Field.Timer.value.helper: "Ex: 15 minutes, 2 heures ou 1 journée"
+Recipie.CreateOrUpdate.Field.IngredientGroup.add: Ajouter une nouvel ingrédient
+Recipie.CreateOrUpdate.Field.IngredientGroup.remove: Supprimer le groupe
+Recipie.CreateOrUpdate.Field.IngredientGroup.name.helper: Nom du groupe
+Recipie.CreateOrUpdate.Field.IngredientGroup.name.default.0: Ingrédients
+Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.ref.helper: Numéro de référence de recette
+Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.name.helper: "Ex: farine, oeuf, sucre, lait..."
+Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.unit.helper: "Ex: g, kg, ml, l, pincée, cc, cs"
+Recipie.CreateOrUpdate.Field.StepGroup.add: Ajouter une nouvelle étape
+Recipie.CreateOrUpdate.Field.StepGroup.remove: Supprimer le groupe
+Recipie.CreateOrUpdate.Field.StepGroup.name.helper: Nom du groupe
+Recipie.CreateOrUpdate.Field.StepGroup.name.default.0: Préparation
+Recipie.CreateOrUpdate.Field.StepGroup.name.default.1: Cuisson
+
+Search.addCriteriaWith: Avec l'ingrédient
+Search.addCriteriaWithout: Sans l'ingrédient
+
+Breadcrumb.search: Recherche
+
+Footer.text: © 2016 Jonathan Swale

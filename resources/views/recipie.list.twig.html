@@ -1,0 +1,55 @@
+{% extends 'layout.twig.html' %} 
+{% import "macro/display.twig.html" as display %}
+
+{% set mainNavItem = 'recipies' %} 
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+  {% if currentTag is defined %}
+  	<li>{{ display.recipiesLink() }}</li>
+  	<li class="active"><strong>{{ 'Tag'|trans }}: </strong>{{ display.tagLink(currentTag) }} <span class="badge">{{ searchResult.total }}</span></li>
+  {% elseif currentCategory is defined %}
+  	<li>{{ display.recipiesLink() }}</li>
+  	<li class="active"><strong>{{ 'Category'|trans }}: </strong>{{ display.categoryLink(currentCategory) }} <span class="badge">{{ searchResult.total }}</span></li>
+  {% elseif currentUser is defined %}
+  	<li>{{ display.recipiesLink() }}</li>
+  	<li class="active"><strong>{{ 'Author'|trans }}: </strong>{{ display.userLink(currentUser) }} <span class="badge">{{ searchResult.total }}</span></li>
+  {% elseif currentQuery is defined %}
+  	<li>{{ display.recipiesLink() }}</li>
+  	<li class="active"><strong>{{ 'Breadcrumb.search'|trans }}: </strong>{{ display.queryLink(currentQuery) }} <span class="badge">{{ searchResult.total }}</span></li>
+  {% elseif currentAdvancedQuery is defined %}
+  	<li>{{ display.recipiesLink() }}</li>
+  	<li><strong>{{ 'Category'|trans }}: </strong>{{ display.categoryLink(category) }}</li>
+  	<li class="active">{{ display.advancedQueryLink(currentAdvancedQuery, category, currentAdvancedQueryInclude, currentAdvancedQueryExclude) }} <span class="badge">{{ searchResult.total }}</span></li>
+  {% else %}
+  	<li>{{ display.recipiesLink() }} <span class="badge">{{ searchResult.total }}</span></li>
+  {% endif %}
+	  <li class="active"><em>Page {{ searchResult.page }}/{{ searchResult.total_page }}</em></li>
+</ol> 
+{% endblock %}
+
+{% block content %} 
+
+<div class="fit-container main">
+	<div class="container recipies">
+		{% for recipie in searchResult.records %}
+			<article id="recipie-{{recipie.id}}" class="recipie">
+				<header class="entry-header">
+						<h2 class="entry-title">
+								{{ display.recipieLink(recipie) }}
+						</h2>
+						{{ display.recipieMeta(recipie) }}
+				</header>
+			</article>
+			{% else %}
+				<div class="text-center">
+					<i>{{ 'Recipie.List.none'|trans }}</i>
+				</div>
+			{% endfor %}
+	</div>
+</div>
+
+{{ display.showPagination(searchResult, paginationUrlModel|raw) }}
+
+{% endblock %}

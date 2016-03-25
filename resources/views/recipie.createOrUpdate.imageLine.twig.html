@@ -1,0 +1,5 @@
+<tr data-image-id="{{ counter }}">
+		<td><a class="btn btn-default" tabindex="-999" href="javascript:void(0)" role="button" data-action="delete" onclick="RecipieManager.deleteParent(event.target, 'tr');"><span class="glyphicon glyphicon-trash"></span></a><input type="hidden" name="form[images][{{ counter }}][id]" value="{{ id }}"></td>
+		<td><input class="form-control" type="text" required="required" name="form[images][{{ counter }}][name]" placeholder="{{ 'Recipie.CreateOrUpdate.Field.Image.name.helper'|trans }}" value="{{ name }}"></td>
+		<td><input class="form-control" type="file" name="form[images][{{ counter }}][file]" {% if -1 == id %} required="required"{%endif%}></td>
+</tr>

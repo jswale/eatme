@@ -1,0 +1,134 @@
+SiteName: EatMe
+SiteTitle: EatMe - For those who are hungry !
+
+# Commons
+User: User
+Users: Users
+Tag: Tag
+Tags: Tags
+Category: Category
+Categories: Categories
+Recipie: Recipie
+Recipies: Recipies
+Author: Author
+Authors: Authors
+Homepage: Home
+Login: Login
+Advanced Search: Search by ingredients 
+Admin: Administration
+Search: Search
+Validate: Validate
+Hour: hour
+Hour.short: h
+Hours: hours
+Minute: minute
+Minute.short: min
+Minutes: minutes
+Tablespoon: tablespoon
+Teaspoon: teaspoon
+
+# Entity Fields
+User.Field.name: Name
+User.Field.username: Username
+User.Field.password: Password
+User.Field.role.admin: Administrator
+Recipie.Field.name: Name
+Recipie.Field.description: Description
+Recipie.Field.quantity: Ingredients for
+Recipie.Field.timers: Timers
+Recipie.Field.category: Category
+Recipie.Field.ingredientGroups: Ingredients group
+Recipie.Field.ingredients: Ingredients
+Recipie.Field.steps: Steps
+Recipie.Field.images: Images
+Category.Field.name: Name
+Tag.Field.name: Name
+Image.Field.name: Description
+Image.Field.file: File
+Timer.Field.name: Name
+Timer.Field.duration: Duration
+Step.Field.name: Description
+Ingredient.Field.name: Ingredient
+Ingredient.Field.quantity: Quantity
+Ingredient.Field.unit: Unit
+
+Error.Password.mismatch: The password are not the same
+
+Menu.New_Recipie: New recipie
+Menu.Logout: Logout
+Menu.MyAccount: My account
+
+MyAccount.Field.password.help: Fill the password field only to change it.
+
+Login.Username: Username
+Login.Password: Password
+Login.rememberMe: Remember me
+
+Index.Hungry: Ungry ?
+Index.RecipieStats: Take a look to one of the <strong>%count%</strong> recipies
+
+Index.QuickSearch: Quick search
+Index.View recipies: All the recipies
+Index.View random recipie: View a random recipie
+Index.Best Categories: The top categories
+Index.Best Tags: The %count% best tags
+
+Category.Create.title: Create
+Category.Edit.title: Update
+Category.List.none: There is no categories
+Category.List.new: Add a new category
+
+User.CreateOrUpdate.title.create: Create
+User.CreateOrUpdate.title.update: Update
+User.CreateOrUpdate.Field.password.repeat: Confirm the password
+User.List.none: There is no users
+User.List.new: Add a new user
+
+Tag.Create.title: Create
+Tag.Edit.title: Update
+Tag.List.none: There is no tags
+Tag.List.new: Add a new tag
+
+Recipie.List.publishedOn: Published on
+Recipie.List.publichedBy: by
+Recipie.List.none: Sorry, there is no recipie...
+
+Recipie.Detail.moreInfo: Informations
+Recipie.Detail.publishedOn: Published on
+Recipie.Detail.publichedBy: by
+Recipie.Detail.updateRatio: Change the ratio
+Recipie.Detail.defaultValues: Default values
+Recipie.Detail.update: Modify the recipie
+Recipie.Detail.delete: Delete the recipie
+
+Recipie.CreateOrUpdate.title.create: Create
+Recipie.CreateOrUpdate.title.update: Update
+Recipie.CreateOrUpdate.Field.quantity.help: "Ex: 2 persons, 40 biscuits"
+Recipie.CreateOrUpdate.Field.tags.help: Separate the values by a comma
+Recipie.CreateOrUpdate.Field.Image.name.helper: Picture legend
+Recipie.CreateOrUpdate.Field.images.add: Add a new picture
+Recipie.CreateOrUpdate.Field.timers.add: Add a new timer
+Recipie.CreateOrUpdate.Field.ingredientGroups.add: Add a new ingredients group
+Recipie.CreateOrUpdate.Field.stepGroups.add: Add a new step group
+Recipie.CreateOrUpdate.Field.Timer.name.default.0: Preparation
+Recipie.CreateOrUpdate.Field.Timer.name.default.1: Cook
+Recipie.CreateOrUpdate.Field.Timer.value.helper: "Ex: 15 minutes, 2 hours ou 1 day"
+Recipie.CreateOrUpdate.Field.IngredientGroup.add: Add a new ingredient
+Recipie.CreateOrUpdate.Field.IngredientGroup.remove: Remove the group
+Recipie.CreateOrUpdate.Field.IngredientGroup.name.helper: Group name
+Recipie.CreateOrUpdate.Field.IngredientGroup.name.default.0: Ingredients
+Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.ref.helper: Recipie reference number
+Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.name.helper: "Ex: floor, eggs, sugar, milk..."
+Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.unit.helper: "Ex: g, kg, ml, l, cc, cs"
+Recipie.CreateOrUpdate.Field.StepGroup.add: Ajouter une nouvelle étape
+Recipie.CreateOrUpdate.Field.StepGroup.remove: Remove the group
+Recipie.CreateOrUpdate.Field.StepGroup.name.helper: Group name
+Recipie.CreateOrUpdate.Field.StepGroup.name.default.0: Preparation
+Recipie.CreateOrUpdate.Field.StepGroup.name.default.1: Cook
+
+Search.addCriteriaWith: With the ingredient
+Search.addCriteriaWithout: Without the ingredient
+
+Breadcrumb.search: Search
+
+Footer.text: © 2016 Jonathan Swale

@@ -1,0 +1,42 @@
+{% extends 'layout.twig.html' %}
+
+{% set mainNavItem = 'account' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+  <li class="active">{{ 'Login' | trans }}</li>
+</ol> 
+{% endblock %}
+
+{% block content %}
+
+<div class="fit-container main" style="padding:10px;">
+  {% if error %}
+      <div class="alert alert-danger">
+          {{ error.message }}
+      </div>
+  {% endif %}
+
+  <form action="{{ path('login_check') }}" method="POST">
+    <div class="form-group">
+      <label for="username">{{ 'Login.Username'|trans }}</label>
+      <input type="text" class="form-control" id="username" placeholder="{{ 'Login.Username'|trans }}" name="_username" value="{{ username }}">
+    </div>
+    <div class="form-group">
+      <label for="password">{{ 'Login.Password'|trans }}</label>
+      <input type="password" class="form-control" id="password" placeholder="{{ 'Login.Password'|trans }}" name="_password">
+    </div>
+    
+		{% if allowRememberMe %}
+		<div class="form-group">
+				<div class="checkbox">
+					<label><input type="checkbox" name="_remember_me" value="true" checked> {{ 'Login.rememberMe'|trans }}</label>
+				</div>
+		</div>
+		{% endif %}    
+	
+    <button type="submit" class="btn btn-primary">{{ 'Validate'|trans}}</button>
+  </form>
+</div>
+{% endblock %}

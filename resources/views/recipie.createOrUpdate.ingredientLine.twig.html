@@ -1,0 +1,18 @@
+<tr>
+		<td>
+			<a class="btn btn-default" tabindex="-999" href="javascript:void(0)" role="button" data-action='delete' onclick="RecipieManager.deleteParent(event.target, 'tr');"><span class="glyphicon glyphicon-trash"></span></a>
+			<input type="hidden" name="form[ingredientGroups][{{ group }}][ingredients][{{ counter }}][id]" value="{{ id }}">
+		</td>
+		<td>
+			<input class="form-control" type="text" required="required" placeholder="{{ 'Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.name.helper'|trans }}" data-field='name' name="form[ingredientGroups][{{ group }}][ingredients][{{ counter }}][name]" value="{{ name }}">
+		</td>
+		<td>
+			<input class="form-control" type="number" step="0.25" min="0" required="required" name="form[ingredientGroups][{{ group }}][ingredients][{{ counter }}][quantity]" value="{{ quantity }}">
+		</td>
+		<td>
+			<input class="form-control" type="text" placeholder="{{ 'Recipie.CreateOrUpdate.Field.IngredientGroup.Ingredient.unit.helper'|trans }}" data-field='unit' name="form[ingredientGroups][{{ group }}][ingredients][{{ counter }}][unit]" value="{{ unit }}">
+		</td>
+		<td>
+			<input class="form-control" tabindex="-999" type="text" name="form[ingredientGroups][{{ group }}][ingredients][{{ counter }}][ref]" value="{{ ref }}">
+		</td>
+</tr>

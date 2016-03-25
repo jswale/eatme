@@ -1,0 +1,86 @@
+{% macro categoryLink(category) %}
+{% spaceless %}
+	<a href="{{ path('categories', {page:1, id: category.id, name: category.name|replace({' ' : '-'})}) }}">{{ category.name|capitalize }}</a>	
+{% endspaceless %}
+{% endmacro %}
+
+{% macro tagLink(tag) %}
+{% spaceless %}
+	<a href="{{ path('tags', {page:1, id: tag.id, name: tag.name|replace({' ' : '-'})}) }}">{{ tag.name|capitalize }}</a>	
+{% endspaceless %}
+{% endmacro %}
+
+{% macro userLink(user) %}
+{% spaceless %}
+	<a href="{{ path('user', {page:1, id: user.id, name: user.name|replace({' ' : '-'})}) }}">{{ user.name }}</a>	
+{% endspaceless %}
+{% endmacro %}
+
+{% macro queryLink(query) %}
+{% spaceless %}
+	<a href="{{ path('search', {page:1, query: query}) }}">{{ query }}</a>	
+{% endspaceless %}
+{% endmacro %}
+
+{% macro advancedQueryLink(query, category, currentAdvancedQueryInclude, currentAdvancedQueryExclude) %}
+{% spaceless %}
+	<a href="{{ path('advancedSearch', {page:1, query: query, categoryId: category.id}) }}">{% if currentAdvancedQueryInclude|length > 0 %}avec {{ currentAdvancedQueryInclude|join(", ") }}{% endif%}{% if currentAdvancedQueryInclude|length > 0 and currentAdvancedQueryExclude|length > 0 %} et {% endif %}{% if currentAdvancedQueryExclude|length > 0 %}sans {{ currentAdvancedQueryExclude|join(", ") }}{% endif%}</a>	
+{% endspaceless %}
+{% endmacro %}
+
+{% macro recipieLink(recipie, name) %}
+{% spaceless %}
+	<a href="{{ path('recipieDetail', {id: recipie.id, name: recipie.cleanName}) }}" rel="bookmark" title="Voir la recette : {{ recipie.name }}">{{ (name|default(recipie.name))|raw }}</a>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro recipiesLink() %}
+{% spaceless %}
+	<a href="{{ path('recipies', {page:1}) }}">{{ 'Recipies'|trans }}</a>	
+{% endspaceless %}
+{% endmacro %}
+
+{% macro recipieMeta(recipie) %}
+<div class="entry-meta">
+	<blockquote>
+		<p>{{ recipie.description }}</p>
+		<footer>{{ 'Recipie.Detail.publishedOn'|trans }} <time class="entry-date published" datetime="{{ recipie.createDate|date("c") }}">{{ recipie.createDate|date("d M Y") }}</time> {{ 'Recipie.Detail.publichedBy'|trans }} <cite>{% if recipie.user %}{{ _self.userLink(recipie.user) }}{% else %}<strong>{{ recipie.author }}</strong>{% endif %}</cite></footer>
+	</blockquote>
+</div>
+{% endmacro %}
+
+{% macro showPagination(searchResult, paginationUrlModel) %}
+	{% if searchResult.total_page > 1 %}
+	<nav class="text-center">
+	  <ul class="pagination">
+	    {% if searchResult.page > 1 %}
+		    <li>
+		      <a href="{{ paginationUrlModel|replace({'__PAGE_ID__' : searchResult.page-1}) }}" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <!-- Previous -->
+		    {% for i in range(max(1, searchResult.page-5), searchResult.page-1) %}
+		    	<li><a href="{{ paginationUrlModel|replace({'__PAGE_ID__' : i}) }}">{{ i }}</a></li>
+		    {% endfor %}
+		  {% endif %}
+		  
+	    <!-- Current -->
+	    <li class="active"><a href="javascript:void(0);">{{ searchResult.page }}</a></li>
+	    
+	    {% if searchResult.page < searchResult.total_page %}
+		    <!-- Next -->
+		    {% for i in range(searchResult.page+1, searchResult.total_page)|slice(0,5) %}
+			    <li><a href="{{ paginationUrlModel|replace({'__PAGE_ID__' : i}) }}">{{ i }}</a></li>
+		    {% endfor %}
+		    
+		    <li>
+		      <a href="{{ paginationUrlModel|replace({'__PAGE_ID__' : searchResult.page+1}) }}" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  {% endif %}
+	  </ul>
+	</nav>
+  {% endif %}
+{% endmacro %}

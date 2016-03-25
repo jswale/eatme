@@ -1,0 +1,58 @@
+{% extends 'layout.twig.html' %}
+
+{% set mainNavItem = 'admin' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+	<li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+  <li>{{ 'Admin' | trans }}</li>
+  <li class="active">{{ 'Users' | trans }}</li>
+</ol> 
+{% endblock %}
+
+{% block content %}
+<div class="fit-container main" style="padding:10px;">
+	<table class="table table-striped table-condensed table-bordered">
+		 <colgroup>
+       <col span="1" style="width: 60px;">
+       <col>
+       <col>
+       <col span="1" style="width: 100px;">
+    </colgroup>			
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{{ 'User.Field.username'|trans }}</th>
+				<th>{{ 'User.Field.name'|trans }}</th>
+				<th>{{ 'User.Field.role.admin'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for user in users %}
+			<tr>
+				<td>
+					<a href="{{ path('userDelete', {id: user.id}) }}" title="Supprimer">
+						<span class="glyphicon glyphicon-trash"/>
+					</a>
+					&#160;
+					<a href="{{ path('userCreateOrUpdate', {id: user.id}) }}" title="Modifier">
+						<span class="glyphicon glyphicon-pencil"/>						
+					</a>
+				</td>
+				<td>{{ user.username }}</td>
+				<td>{{ user.name }}</td>
+				<td style="text-align:center;">{% if user.isAdmin %}<span class="glyphicon glyphicon-ok"></span>{%endif%}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+		{% if not users %}
+		<tfoot>
+			<tr>
+					<td colspan="4"><i>{{ 'User.List.none'|trans }}</i></td>
+			</tr>
+		</tfoot>
+		{% endif %}
+	</table>
+	<a href="{{ path('userCreateOrUpdate') }}"><button type="button" class="btn btn-primary">{{ 'User.List.new'|trans }}</button></a>
+</div>	
+{% endblock %}

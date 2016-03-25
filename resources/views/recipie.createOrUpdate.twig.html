@@ -1,0 +1,167 @@
+{% extends 'layout.twig.html' %}
+
+{% set mainNavItem = 'recipie' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+	<li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+  <li>{{ 'Admin' | trans }}</li>
+  <li>{{ 'Recipie' | trans }}</li>
+  <li class="active">
+		{% if form.vars.value %}
+  		{{ 'Recipie.CreateOrUpdate.title.update' | trans }}
+		{% else %}
+  		{{ 'Recipie.CreateOrUpdate.title.create' | trans }}
+		{% endif %}  
+  </li>
+</ol> 
+{% endblock %}
+
+{% block content %}
+
+<div class="fit-container" style="background-color:#f3f3f3;	padding:15px;">
+	<div style="border: 1px solid #e1e1e1;	background:#FFF;	padding: 20px 30px 0px 30px; ">
+    {{ form_start(form) }}
+    
+		{{ form_widget(form) }}
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="form_tags">{{ 'Tags' | trans }}</label>
+			<div class="col-sm-10">
+				<input type="text" id="form_tags" name="form[tags]" placeholder="{{ 'Recipie.CreateOrUpdate.Field.tags.help'|trans }}" class="form-control">
+			</div>
+		</div>		
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="form_images">{{ 'Recipie.Field.images'|trans }}</label>
+			<div class="col-sm-10">
+				<div class="panel panel-default images">
+				  <table class="table table-striped table-bordered">
+						<colgroup>
+				       <col span="1" style="width: 60px;">
+				    </colgroup>
+				    <thead>
+				    	<tr>
+				    		<th class="text-center">#</th>
+				    		<th class="required">{{ 'Image.Field.name'|trans }}</th>
+				    		<th class="required">{{ 'Image.Field.file'|trans }}</th>
+				    	</tr>
+				    </thead>
+				    <tbody>
+				    {% if recipie %}
+					    {% for image in recipie.images %}
+					    	{% include 'recipie.createOrUpdate.imageLine.twig.html' with {'counter': loop.index0, 'id': image.id, 'name': image.name} %}				    
+					    {% endfor %}
+				    {% endif %}				    
+				    </tbody>
+				  </table>	
+					<div class="panel-body">
+					  <a href="javascript:void(0)" onclick="RecipieManager.addImage()" role="button">
+							<span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.images.add'|trans }}
+						</a>
+					</div>
+				 </div>	  
+			</div>
+		</div>		
+		
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="form_tags">{{ 'Recipie.Field.timers'|trans }}</label>
+			<div class="col-sm-10">
+				<div class="panel panel-default timers">
+				  <table class="table table-striped table-bordered">
+						<colgroup>
+				       <col span="1" style="width: 60px;">
+				    </colgroup>
+				    <thead>
+				    	<tr>
+				    		<th class="text-center">#</th>
+				    		<th class="required">{{ 'Timer.Field.name'|trans }}</th>
+				    		<th class="required">{{ 'Timer.Field.duration'|trans }}</th>
+				    	</tr>
+				    </thead>
+				    <tbody>
+				    {% if recipie %}
+					    {% for timer in recipie.timers %}
+					    	{% include 'recipie.createOrUpdate.timerLine.twig.html' with {'counter': loop.index0, 'id': timer.id, 'name': timer.name, 'value': timer.value} %}				    
+					    {% endfor %}
+				    {% endif %}
+				    </tbody>
+				  </table>	
+					<div class="panel-body">
+					  <a href="javascript:void(0)" onclick="RecipieManager.addTimer()" role="button">
+							<span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.timers.add'|trans }}
+						</a>
+					</div>
+				 </div>	  
+			</div>
+		</div>		
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label required" for="form_tags">{{ 'Recipie.Field.ingredientGroups'|trans }}</label>
+			<div class="col-sm-10">
+
+				<div class="ingredientGroups">			
+			    {% if recipie %}
+				    {% for ingredientGroup in recipie.ingredientGroups %}
+				    	{% include 'recipie.createOrUpdate.ingredientGroup.twig.html' with {'counter': loop.index0, 'id': ingredientGroup.id, 'name': ingredientGroup.name, 'ingredients': ingredientGroup.ingredients} %}				    
+				    {% endfor %}
+			    {% endif %}				    				
+				</div>
+			  <a class="btn btn-success" href="javascript:void(0)" onclick="RecipieManager.addIngredientGroup()" role="button" data-action="addIngredientGroup">
+					<span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.ingredientGroups.add'|trans }}
+				</a>
+			</div>
+		</div>		
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label required" for="form_tags">{{ 'Recipie.Field.steps'|trans }}</label>
+			<div class="col-sm-10">
+			
+				<div class="stepGroups">			
+			    {% if recipie %}
+				    {% for stepGroup in recipie.stepGroups %}
+				    	{% include 'recipie.createOrUpdate.stepGroup.twig.html' with {'counter': loop.index0, 'id': stepGroup.id, 'name': stepGroup.name, 'steps': stepGroup.steps} %}				    
+				    {% endfor %}
+			    {% endif %}				    				
+				
+				</div>
+			  <a class="btn btn-success" href="javascript:void(0)" onclick="RecipieManager.addStepGroup()" role="button"  data-action="addStepGroup">
+					<span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.stepGroups.add'|trans }}
+				</a>
+			</div>
+		</div>		
+		
+		<div class="form-group">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-10">
+				<button type="submit" id="form_submit" name="form[submit]" class="btn-primary btn"><span class="glyphicon glyphicon-floppy-save"></span> {{ 'Validate'|trans }}</button>
+			</div>
+		</div>		
+		
+		{{ form_end(form) }}
+    
+	</div>		
+</div>		
+{% endblock %}
+
+{% block pagejs %}
+<script src="/assets/js/recipie.createOrUpdate.js"></script>	    	
+<script>
+var recipieImageLineTemplateUrl = "{{ path('recipieImageLineTemplate') }}";
+var recipieTimerLineTemplateUrl = "{{ path('recipieTimerLineTemplate') }}"; 
+var recipieIngredientGroupTemplateUrl = "{{ path('recipieIngredientGroupTemplate') }}";
+var recipieIngredientLineTemplateUrl = "{{ path('recipieIngredientLineTemplate') }}";
+var recipieStepGroupTemplateUrl = "{{ path('recipieStepGroupTemplate') }}";
+var recipieStepLineTemplateUrl = "{{ path('recipieStepLineTemplate') }}";
+
+RecipieManager.init();
+
+{% if not recipie %}
+RecipieManager.addIngredientGroup();
+RecipieManager.addStepGroup();
+{% endif %}
+
+
+</script>	    	
+{% endblock %}

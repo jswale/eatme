@@ -1,0 +1,41 @@
+{% extends 'layout.twig.html' %}
+
+{% set mainNavItem = 'admin' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+	<li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+  <li class="active">{{ 'Menu.MyAccount' | trans }}</li>
+</ol> 
+{% endblock %}
+
+{% block content %}
+<div class="fit-container main" style="padding:10px;">
+    {{ form_start(form) }}
+    
+		{{ form_widget(form) }}
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label {% if null == user %} required{% endif %}" for="form_passord">{{ 'User.Field.password'|trans }}</label>
+			<div class="col-sm-10">
+				<input type="password" id="form_password" name="form[password]" {% if null == user %} required="required" {% endif %} class="form-control">
+			 	<p class="help-block">{{ 'MyAccount.Field.password.help'|trans }}</p>
+			</div>
+		</div>		
+		<div class="form-group">
+			<label class="col-sm-2 control-label {% if null == user %} required{% endif %}" for="form_passord_repeat">{{ 'User.CreateOrUpdate.Field.password.repeat'|trans }}</label>
+			<div class="col-sm-10">
+				<input type="password" id="form_password_repeat" name="form[password_repeat]" {% if null == user %} required="required" {% endif %} class="form-control">
+			</div>
+		</div>		
+		
+		<div class="form-group">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-10">
+				<button type="submit" id="form_submit" name="form[submit]" class="btn-primary btn"><span class="glyphicon glyphicon-floppy-save"></span> {{ 'Validate'|trans }}</button>
+			</div>
+		</div>		
+		
+		{{ form_end(form) }}		
+</div>  
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'layout.twig.html' %} 
+{% import "macro/display.twig.html" as display %}
+
+{% set mainNavItem = 'homepage' %} 
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="active">{{ 'Homepage'|trans }}</li>
+</ol> 
+{% endblock %}
+
+{% block content %} 
+
+<div class="jumbotron">
+  <h1>{{ 'Index.Hungry'|trans}}</h1>
+  <p>{{ 'Index.RecipieStats'|trans({'%count%': recipie_count})|raw }}</p>
+  <p>
+	<form action="{{ url('doSearch')}}" method="post" class="form-inline">
+		<div class="input-group">
+      <div class="input-group-addon">{{ 'Index.QuickSearch'|trans }}</div>
+			<input type="text" class="form-control" style="width:300px;" name="query" placeholder="Ex: Amande, Miel, Olive" required="required"/>
+    </div>
+		<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> {{ 'Search'|trans }}</button>
+	</form>  
+  </p>
+  <p>
+    <a class="btn btn-primary" href="{{ url('recipies', {page:1}) }}" role="button"><span class="glyphicon glyphicon-list" style="margin-right:5px;"></span>{{ 'Index.View recipies'|trans}}</a>
+    <a class="btn btn-info" href="{{ url('random') }}" role="button"><span class="glyphicon glyphicon-random" style="margin-right:5px;"></span>{{ 'Index.View random recipie'|trans}}</a>
+    <a class="btn btn-success" href="{{ url('searchByIngredient') }}" role="button"><span class="glyphicon glyphicon-zoom-in" style="margin-right:5px;"></span>{{ 'Advanced Search'|trans}}</a>
+  </p>
+</div>
+
+<div class="headline">
+	<h3 class="blue">{{ 'Index.Best Categories'|trans }}</h3>
+</div>
+<ul class="list-group">
+	{% for count in categoriesCounter %}
+	  <li class="list-group-item">
+    	<span class="badge">{{ count.total }}</span>
+			{{ display.categoryLink(count.group) }}
+		</li>
+  {% endfor %}
+</ul>
+
+<div class="headline">
+	<h3 class="blue">{{ 'Index.Best Tags'|trans({'%count%': tagsCounter|length}) }}</h3>
+</div>
+<ul class="list-group">
+	{% for count in tagsCounter %}
+	  <li class="list-group-item">
+    	<span class="badge">{{ count.total }}</span>
+			{{ display.tagLink(count.group) }}
+		</li>
+  {% endfor %}
+</ul>
+
+<div class="headline">
+	<h3 class="blue">{{ 'Authors'|trans}}</h3>
+</div>
+<ul class="list-group">
+	{% for count in usersCounter %}
+	  <li class="list-group-item">
+    	<span class="badge">{{ count.total }}</span>
+    	{{ display.userLink(count.group) }}			
+		</li>
+  {% endfor %}
+</ul>
+	
+{% endblock %}

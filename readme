@@ -1,0 +1,19 @@
+cd ~/project/workspace/EatMe
+
+# Generation des classes depuis la base de donnée :
+bin/console orm:generate:entities 
+
+# Generation de la base de donnée depuis le code
+bin/console orm:schema-tool:create --dump-sql
+
+# Mettre a jour le projet et dependences
+php composer.phar update
+
+# Ajouter une dépendence
+php composer.phar require group/script
+
+# Supprimer une dépendance
+php composer.phar remove group/script
+
+# Executer un script
+php composer.phar run-script compile

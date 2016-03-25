@@ -1,0 +1,9 @@
+<tr>
+		<td>
+			<a class="btn btn-default" tabindex="-999" href="javascript:void(0)" role="button" data-action='delete' onclick="RecipieManager.deleteParent(event.target, 'tr');"><span class="glyphicon glyphicon-trash"></span></a>
+			<input type="hidden" name="form[stepGroups][{{ group }}][steps][{{ counter }}][id]" value="{{ id }}">
+		</td>
+		<td>
+			<textarea class="form-control" required="required" data-field='description' name="form[stepGroups][{{ group }}][steps][{{ counter }}][description]">{{ description }}</textarea>
+		</td>
+</tr>

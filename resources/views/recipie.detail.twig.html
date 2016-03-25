@@ -1,0 +1,202 @@
+{% extends 'layout.twig.html' %} 
+{% import "macro/display.twig.html" as display %}
+
+{% set mainNavItem = 'recipies' %} 
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans}}</a></li>
+  <li>{{ display.recipiesLink() }}</li>
+  <li>{{ display.categoryLink(recipie.category) }}</li>
+  <li class="active">{{ recipie.name }}</li>
+</ol> 
+{% endblock %}
+
+{% block content %}
+<div class="fit-container main">
+	<div class="container">
+	<article id="recipie-{{ recipie.id}}" class="recipie">
+		<header class="entry-header">
+				<h2 class="entry-title">
+						<strong>{{ recipie.name }}</strong>
+				</h2>
+				{{ display.recipieMeta(recipie) }}
+		</header>
+		
+		<div class="row entry-content hidden-md hidden-lg">
+				{{ _self.showMoreInfo(recipie) }}		
+		</div>
+		<div class="row entry-content">
+		
+			<div class="col-md-8 col-xs-12">
+			
+				<div class="ingredientGroups">
+					<div class="headline">
+						<h3 class="green"><span class="glyphicon glyphicon-grain"></span> {{ 'Recipie.Field.ingredients'|trans }}</h3>
+					</div>
+					{% if recipie.ingredientGroups|length == 1 %}
+						{{ _self.showIngredients(recipie.ingredientGroups|first.ingredients) }}
+					{% else %}
+						<div class="row">
+							<div class="col-xs-offset-1">
+			  			{% for ingredientGroup in recipie.ingredientGroups %}
+								<div class="ingredientGroup">
+									<div class="headline">
+										<h4 class="blue">{{ ingredientGroup.name }}</h4>
+									</div>
+									{{ _self.showIngredients(ingredientGroup.ingredients) }}
+								</div>
+						  {% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				</div>
+				
+				{% if recipie.stepGroups|length > 0 %}
+				<div class="stepGroups">
+					<div class="headline">
+						<h3 class="green"><span class="glyphicon glyphicon-road"></span> {{ 'Recipie.Field.steps'|trans }}</h3>
+					</div>
+					{% if recipie.stepGroups|length == 1 %}
+						{{ _self.showSteps(recipie.stepGroups|first.steps) }}
+					{% else %}						
+						<div class="row">
+							<div class="col-xs-offset-1">					
+			  			{% for stepGroup in recipie.stepGroups %}
+								<div class="stepGroup">
+									<div class="headline">
+										<h4 class="blue">{{ stepGroup.name }}</h4>
+									</div>
+									{{ _self.showSteps(stepGroup.steps) }}
+								</div>
+						  {% endfor %}
+							</div>				
+						</div>		
+					{% endif %}		
+				</div>		
+				{% endif %}		
+				
+				{% if not recipie.images is empty %}
+				<div class="images">
+					<div class="headline">
+						<h3 class="green"><span class="glyphicon glyphicon-picture"></span> {{ 'Recipie.Field.images'|trans}}</h3>
+					</div>
+					{% for image in recipie.images %}						
+		  			<div class="text-center image">
+		  				<img src="/upload/images/{{image.id}}.{{image.extension}}" class="img-responsive img-thumbnail"/>
+		  				<br/>
+		  				<em>{{ image.name }}</em>
+						</div>
+					{% endfor %}		
+				</div>		
+				{% endif %}		
+						
+			</div>
+			
+			<div class="col-md-4 col-xs-12">
+				<div class="hidden-xs hidden-sm">
+					{{ _self.showMoreInfo(recipie) }}
+				</div>
+				
+				<div class="text-center" style="padding-top:10px;">
+					<button onclick="RecipieDetail.toggle()" title="Modifier" class="btn btn-default">
+						<span class="glyphicon glyphicon-scale"></span> {{ 'Recipie.Detail.updateRatio'|trans }}
+					</button>
+				</div>					 
+				
+				{% if is_granted('ROLE_USER') and (recipie.author == app.security.token.username or is_granted('ROLE_ADMIN')) %}
+				<div class="text-center" style="padding-top:10px;">
+					<a href="{{ path('recipieCreateOUpdate', {id: recipie.id}) }}" title="Modifier" class="btn btn-primary">
+						<span class="glyphicon glyphicon-pencil"></span> {{ 'Recipie.Detail.update'|trans }}				
+					</a>
+				</div>					 
+				{% endif %}					
+				
+			</div>
+					
+		</div>
+		
+		<footer class="entry-footer">
+			{% if is_granted('ROLE_ADMIN') %}
+				<div class="text-center" style="padding-top:10px;">
+					<a href="{{ path('recipieDelete', {id: recipie.id}) }}" title="Supprimer" class="btn btn-danger">
+						<span class="glyphicon glyphicon-trash"></span> {{ 'Recipie.Detail.delete'|trans }}						
+					</a>
+				</div>					 
+			{% endif %}						
+		</footer>
+	</article>
+</div>	
+{% endblock %}
+
+{% block pagejs %}
+<script src="/assets/js/recipie.detail.js"></script>	    	
+<script>RecipieDetail.init();</script>	    	
+{% endblock %}
+
+
+{% macro showIngredients(ingredients) %}
+	{% import "macro/display.twig.html" as display %}
+	<dl class="dl-horizontal">
+		{% for ingredient in ingredients %}
+		  <dt>{{ ingredient.name|capitalize }}{% if ingredient.ref %} {{ display.recipieLink(ingredient.ref, '<span class="glyphicon glyphicon-cutlery"></span>') }}{% endif %}</dt>
+		  <dd>
+		  	<button class="btn btn-default btn-xs quantityChange" onclick="RecipieDetail.changeQuantity(event.target, false);" title="Réduire la quantité"><span class="glyphicon glyphicon-minus"></span></button>
+		  	<button class="btn btn-default btn-xs quantityChange" onclick="RecipieDetail.changeQuantity(event.target, true);" title="Augmenter la quantité"><span class="glyphicon glyphicon-plus"></span></button>
+		  	<span data-current-quantity="{{ ingredient.quantity }}" data-default-quantity="{{ ingredient.quantity }}">{{ ingredient.quantity }}</span>
+		  	{{ ingredient.unit }}</dd>
+	  {% endfor %}
+  	<dt class="quantityChange"></dt>			
+  	<dd class="quantityChange">
+	  	<button onclick="RecipieDetail.reset(event.target)" title="Réinitialiser" class="btn btn-default">
+					<span class="glyphicon glyphicon-repeat"></span> {{ 'Recipie.Detail.defaultValues'|trans }}
+				</button>
+		</dd>
+	</dl>	
+	
+{% endmacro %}
+
+{% macro showSteps(steps) %}
+	<ul>
+		{% for step in steps %}
+			<li>{{ step.description }}</li>
+	  {% endfor %}
+	</ul>
+{% endmacro %}
+
+{% macro showMoreInfo(recipie) %}
+	{% import "macro/display.twig.html" as display %}
+<div class="moreInfo">
+	<h3><span class="glyphicon glyphicon-info-sign"></span> {{ 'Recipie.Detail.moreInfo'|trans }}</h3>
+	<dl class="dl-horizontal">
+		
+	  <dt>{{ 'Category'|trans }}</dt>
+	  <dd>{{ display.categoryLink(recipie.category) }}</dd>
+	  
+		{% if not recipie.tags is empty %}
+		  <dt>{{ 'Tags'|trans }}</dt>
+		  <dd>
+  			{% for tag in recipie.tags %}
+  				{{ display.tagLink(tag) }}{% if loop.index < loop.length %},{% endif %}
+			  {% endfor %}
+			</dd>
+	  {% endif %}
+	  
+		{% if recipie.quantity %}
+		  <dt>{{ 'Recipie.Field.quantity'|trans }}</dt>
+		  <dd>{{ recipie.quantity }}</dd>
+	  {% endif %}
+	</dl>
+	
+	{% if not recipie.timers is empty %}
+	<h3><span class="glyphicon glyphicon-hourglass"></span> {{ 'Recipie.Field.timers'|trans }}</h3>
+	<dl class="dl-horizontal">
+		{% for timer in recipie.timers %}
+		  <dt>{{ timer.name }}</dt>
+		  <dd>{{ timer.value }}</dd>
+	  {% endfor %}
+	</dl>
+  {% endif %}
+</div>
+{% endmacro %}
+

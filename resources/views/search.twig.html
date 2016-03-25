@@ -1,0 +1,41 @@
+{% extends 'layout.twig.html' %} 
+{% import "macro/display.twig.html" as display %}
+
+{% set mainNavItem = 'homepage' %} 
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+  <li class="active">{{ 'Advanced Search' | trans }}</li>
+</ol> 
+{% endblock %}
+
+{% block content %} 
+<div class="fit-container main" style="padding:10px;">
+	<form action="{{ url('doAdvancedSearch')}}" method="post" class="form-horizontal center-block" style="width:400px">
+		
+		<div class="criterias" style="margin-left:15px;margin-right:15px;">
+			<div class="form-group">
+		    <div class="input-group">
+		      <div class="input-group-addon">{{ 'Category'|trans }}</div>
+					<select class="form-control" name="category">
+					{% for category in categories %}
+					  <option value="{{ category.id }}">{{ category.name }}</option>
+					{% endfor %}
+					</select>
+		    </div>
+		  </div>	
+		</div>
+		<div class="clearfix" style="border-bottom:1px solid #CECECE;padding-bottom:15px;margin:15px 0px;">
+			<a href="javascript:void(0);" onclick="Search.addCriteria('avec');" class="btn btn-success pull-left"><span class="glyphicon glyphicon-zoom-in" style="margin-right: 5px;"></span>{{ 'Search.addCriteriaWith'|trans }}</a>
+			<a href="javascript:void(0);" onclick="Search.addCriteria('sans');" class="btn btn-warning pull-right"><span class="glyphicon glyphicon-zoom-out" style="margin-right: 5px;"></span>{{ 'Search.addCriteriaWithout'|trans }}</a>
+		</div>
+		<button type="submit" class="btn btn-primary center-block"><span class="glyphicon glyphicon-search" style="margin-right: 5px;"></span>{{ 'Search'|trans }}</button>
+	</form>  
+</div>
+{% endblock %}
+
+{% block pagejs %}
+<script src="/assets/js/search.js"></script>	    	
+<script>Search.addCriteria('avec');</script>
+{% endblock %}

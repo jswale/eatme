@@ -1,0 +1,13 @@
+<tr data-timer-id="{{ counter }}">
+		<td><a class="btn btn-default" tabindex="-999" href="javascript:void(0)" role="button" data-action="delete" onclick="RecipieManager.deleteParent(event.target, 'tr');"><span class="glyphicon glyphicon-trash"></span></a><input type="hidden" name="form[timers][{{ counter }}][id]" value="{{ id }}"></td>
+		<td><input class="form-control" type="text" required="required" name="form[timers][{{ counter }}][name]" value="{% spaceless %}
+{% if name is empty %}
+	{%if counter == 0 %}{{ 'Recipie.CreateOrUpdate.Field.Timer.name.default.0'|trans }}
+	{%elseif counter == 1%}{{ 'Recipie.CreateOrUpdate.Field.Timer.name.default.1'|trans }}
+	{%endif%}
+{%else%}
+	{{ name }}
+{%endif%}	
+{% endspaceless %}"></td>
+		<td><input class="form-control" type="text" name="form[timers][{{ counter }}][value]" placeholder="{{ 'Recipie.CreateOrUpdate.Field.Timer.value.helper'|trans }}" required="required" value="{{ value }}"></td>
+</tr>

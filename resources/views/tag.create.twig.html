@@ -1,0 +1,18 @@
+{% extends 'layout.twig.html' %}
+
+{% set mainNavItem = 'admin' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+	<li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+  <li>{{ 'Admin' | trans }}</li>
+	<li><a href="{{ path('tagList') }}">{{ 'Tags'|trans }}</a></li>
+	<li class="active">{{ 'Tag.Create.title'|trans }}</li>
+</ol> 
+{% endblock %}
+
+{% block content %}
+<div class="fit-container main" style="padding:10px;">
+  {{ form(form) }}
+</div>  
+{% endblock %}
