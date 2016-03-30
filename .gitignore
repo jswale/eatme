@@ -1,5 +1,5 @@
 /var/
 /vendor/
-/web/assets/
+/web/vendor/
 /.settings/
 /.project

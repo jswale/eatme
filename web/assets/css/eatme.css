@@ -1,0 +1,200 @@
+body {
+  background:#ccc;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+body > .container {
+  padding-bottom: 10px;
+  background:#FFF;
+}
+
+.fit-container {
+	margin-left:-15px;
+	margin-right:-15px;
+}
+
+.main {
+	border-top: 1px solid #e1e1e1;
+	background-color:#f3f3f3; 
+	padding:15px 0px;
+}
+
+.header {
+	background-color: #23232C;
+	border-radius:0px;
+}
+
+footer {
+	padding:0px 15px;
+}
+
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left:10px;
+  line-height: 50px;
+}
+.header h3 a {
+	color:#FFF;
+	text-decoration: none;
+}
+.header h3 a:before {
+	content: "\e179";
+  font-family: 'Glyphicons Halflings';
+  padding-right:5px;
+}
+
+.header .active:after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -7px;
+    vertical-align: middle;
+    content: " ";
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #FFF;
+    border-left: 7px solid transparent;
+}
+
+.header li {
+  line-height: 35px;
+}
+.header li>a {
+	border-radius:0px;
+	color:#C2C2CA;
+}
+.header li>a:hover {
+	color:#FFF;
+	background-color: #23232C;
+}
+
+.header li>a span.glyphicon {
+	margin-right:5px;
+}
+
+.header .open>a {
+	color:#FFF !important;
+	background-color: #23232C !important;
+}
+.header .dropdown-menu {
+	background-color: #23232C;
+	margin-top:0px;
+}
+.header .dropdown-menu>li>a {
+	background-color: #23232C;
+	color:#C2C2CA;
+}
+
+.header .dropdown-menu>li>a:hover {
+	color:#FFF;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  font-weight: 700;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Navigation */
+.breadcrumb {
+	margin-top:20px;
+	background-color:#F4F4F4;
+	border: 1px solid #e1e1e1;
+}
+
+/* Required form field */
+form label.required:after {
+	content : '*';
+	padding-left:10px;
+	color:darkred;
+}
+th.required:after {
+	content : '*';
+	padding-left:10px;
+	color:darkred;
+}
+
+/* Glyphicons on titles */
+h2 .glyphicon, 
+h3 .glyphicon, 
+h4 .glyphicon {
+  font-size:16px;
+}
+
+/*Block Headline*/
+.headline {
+  display: block;
+  margin: 10px 0 25px 0;
+  border-bottom: 1px dotted #e4e9f0;
+}
+
+.headline h2, 
+.headline h3, 
+.headline h4 {
+  margin: 0 0 -2px 0;
+  padding-bottom: 5px;
+  display: inline-block;
+  border-bottom: 2px solid #000;
+}
+
+
+.headline h2.orange,
+.headline h3.orange,
+.headline h4.orange {
+  border-bottom-color: #ff7859;
+}
+.headline h2.green,
+.headline h3.green,
+.headline h4.green {
+  border-bottom-color: #72c02c;
+}
+.headline h2.blue,
+.headline h3.blue,
+.headline h4.blue {
+  border-bottom-color: #3498db;
+}
+
+/* Recipies */
+
+.recipie {
+	border: 1px solid #e1e1e1;
+	background:#FFF;
+	padding: 0 30px;
+	padding-bottom: 20px;
+  box-shadow: 3px 3px 10px #AAA;
+}
+.recipie:not(:last-of-type) {
+	margin-bottom:10px;
+}
+
+.recipie h2 a {
+	color:#333;
+	font-weight: 700;
+}
+
+.recipie .images .image:not(:last-of-type) {
+	margin-bottom:20px;
+}
+
+.recipie .moreInfo {
+	border-left:1px solid #e1e1e1;
+	background:#f3f3f3;
+	padding:5px 15px;
+  box-shadow: 3px 3px 10px #AAA;
+  margin-bottom:5px;
+}
+
+.recipie .moreInfo h3{
+	text-align: center;
+	border-bottom: 1px dashed #C0C0C0;
+}
+
+.recipie .quantityChange {
+	display:none;
+	font-size:8px;
+}

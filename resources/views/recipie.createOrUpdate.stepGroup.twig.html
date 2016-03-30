@@ -31,7 +31,7 @@
 				</tbody>
 		</table>
 		<div class="panel-body">
-			<a href="javascript:void(0)" role="button" data-action="add" onclick="RecipieManager.addStep();"><span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.StepGroup.add'|trans }}</a>
+			<a href="javascript:void(0)" role="button" data-action="add" onclick="RecipieManager.addStep({{ counter }});"><span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.StepGroup.add'|trans }}</a>
 			<a class="btn btn-danger pull-right" tabindex="-999" href="javascript:void(0)" role="button" data-action="delete" onclick="RecipieManager.deleteParent(event.target, '.stepGroup');"><span class="glyphicon glyphicon-trash"></span> {{ 'Recipie.CreateOrUpdate.Field.StepGroup.remove'|trans }}</a>
 		</div>
 </div>

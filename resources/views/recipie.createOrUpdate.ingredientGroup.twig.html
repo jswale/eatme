@@ -38,7 +38,7 @@
 				</tbody>
 		</table>
 		<div class="panel-body">
-			<a href="javascript:void(0)" role="button" data-action="add" onclick="RecipieManager.addIngredient();"><span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.IngredientGroup.add'|trans }}</a>
+			<a href="javascript:void(0)" role="button" data-action="add" onclick="RecipieManager.addIngredient({{ counter }});"><span class="glyphicon glyphicon-plus"></span> {{ 'Recipie.CreateOrUpdate.Field.IngredientGroup.add'|trans }}</a>
 			<a class="btn btn-danger pull-right" tabindex="-999" href="javascript:void(0)" role="button" data-action="delete" onclick="RecipieManager.deleteParent(event.target, '.ingredientGroup');"><span class="glyphicon glyphicon-trash"></span> {{ 'Recipie.CreateOrUpdate.Field.IngredientGroup.remove'|trans }}</a>
 		</div>
 </div>
