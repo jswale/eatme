@@ -8,4 +8,5 @@ $app['db.options'] = array(
 		'user' => '',
 		'password' => '',
 		'host' => '',
+		'prefix' => '',
 );

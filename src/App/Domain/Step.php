@@ -4,7 +4,7 @@ namespace App\Domain;
 
 /**
  * @Entity
- * @Table(name="eatme_step")
+ * @Table(name="step")
  **/
 class Step extends BaseEntity {
 

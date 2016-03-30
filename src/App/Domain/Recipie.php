@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
- * @Table(name="eatme_recipie")
+ * @Table(name="recipie")
  **/
 class Recipie extends BaseEntity {
 
@@ -59,7 +59,7 @@ class Recipie extends BaseEntity {
 
 	/**
 	 * @ManyToMany(targetEntity="App\Domain\Tag")
-	 * @JoinTable(name="eatme_recipie_tags",
+	 * @JoinTable(name="recipie_tags",
 	 * 		joinColumns={@JoinColumn(name="recipie_id", referencedColumnName="id")},
 	 * 		inverseJoinColumns={@JoinColumn(name="tag_id", referencedColumnName="id")}
 	 * )

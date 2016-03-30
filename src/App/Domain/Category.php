@@ -4,7 +4,7 @@ namespace App\Domain;
 
 /**
  * @Entity
- * @Table(name="eatme_category")
+ * @Table(name="category")
  **/
 class Category extends BaseEntity {
 

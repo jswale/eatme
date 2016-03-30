@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
- * @Table(name="eatme_stepgroup")
+ * @Table(name="stepgroup")
  **/
 class StepGroup extends BaseEntity {
 

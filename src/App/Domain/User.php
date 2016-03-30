@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * @Entity
- * @Table(name="eatme_user")
+ * @Table(name="user")
  **/
 class User extends BaseEntity implements AdvancedUserInterface {
 

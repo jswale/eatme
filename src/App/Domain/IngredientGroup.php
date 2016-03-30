@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
- * @Table(name="eatme_ingredientgroup")
+ * @Table(name="ingredientgroup")
  **/
 class IngredientGroup extends BaseEntity {
 

@@ -12,6 +12,7 @@ $app['db.options'] = array(
 		'user' => '',
 		'password' => '',
 		'host' => 'localhost',
+		'prefix' => 'eatme_',
 );
 
 $app['monolog.options'] = array(

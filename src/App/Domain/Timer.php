@@ -4,7 +4,7 @@ namespace App\Domain;
 
 /**
  * @Entity
- * @Table(name="eatme_timer")
+ * @Table(name="timer")
  **/
 class Timer extends BaseEntity {
 

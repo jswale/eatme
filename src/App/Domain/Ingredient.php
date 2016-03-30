@@ -4,7 +4,7 @@ namespace App\Domain;
 
 /**
  * @Entity
- * @Table(name="eatme_ingredient")
+ * @Table(name="ingredient")
  **/
 class Ingredient extends BaseEntity {
 

@@ -4,7 +4,7 @@ namespace App\Domain;
 
 /**
  * @Entity
- * @Table(name="eatme_image")
+ * @Table(name="image")
  **/
 class Image extends BaseEntity {
 

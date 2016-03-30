@@ -21,6 +21,8 @@ use Symfony\Component\Translation\Loader\YamlFileLoader;
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\EventManager;
+use Doctrine\ORM\Events;
 
 use App\Manager\Provider\ManagerRegistry;
 use App\Manager\Provider\ManagerProvider;
@@ -31,6 +33,7 @@ use App\Controller\TagControllerProvider;
 use App\Controller\UserControllerProvider;
 use App\Controller\CategoryControllerProvider;
 use App\Controller\RecipieControllerProvider;
+use App\Dao\TablePrefix;
 
 class Application extends SilexApplication
 {
@@ -87,6 +90,12 @@ class Application extends SilexApplication
         });
 
 				// ORM
+				$evm = new EventManager();
+				$prefix = "";
+				if(isset($app['db.options']['prefix'])) {
+					$prefix = $app['db.options']['prefix'];
+				}
+				$evm->addEventListener(Events::loadClassMetadata, new TablePrefix($prefix));
 
         $config = Setup::createAnnotationMetadataConfiguration(array(
 						$this->rootDir . "/src/App/Domain"
@@ -94,7 +103,7 @@ class Application extends SilexApplication
 
         $config->addCustomStringFunction('RAND', 'App\Dao\Rand');
 
-				$app['orm.em'] = EntityManager::create($app['db.options'], $config);
+				$app['orm.em'] = EntityManager::create($app['db.options'], $config, $evm);
 				$app['orm.qb'] = $app['orm.em']->createQueryBuilder();
 
         $app->register(new SecurityServiceProvider(), array(
