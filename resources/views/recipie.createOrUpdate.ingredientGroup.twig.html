@@ -32,7 +32,7 @@
 				<tbody>
 		    {% if ingredients is defined %}
 			    {% for ingredient in ingredients %}
-			    	{% include 'recipie.createOrUpdate.ingredientLine.twig.html' with {'counter': loop.index0, 'group': counter, 'id': ingredient.id, 'name': ingredient.name, 'unit': ingredient.unit, 'quantity':ingredient.quantity, 'ref': ingredient.ref} %}				    
+			    	{% include 'recipie.createOrUpdate.ingredientLine.twig.html' with {'counter': loop.index, 'group': counter, 'id': ingredient.id, 'name': ingredient.name, 'unit': ingredient.unit, 'quantity':ingredient.quantity, 'ref': ingredient.ref} %}				    
 			    {% endfor %}
 		    {% endif %}				   				
 				</tbody>

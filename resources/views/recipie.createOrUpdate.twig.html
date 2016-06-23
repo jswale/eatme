@@ -50,7 +50,7 @@
 				    <tbody>
 				    {% if recipie %}
 					    {% for image in recipie.images %}
-					    	{% include 'recipie.createOrUpdate.imageLine.twig.html' with {'counter': loop.index0, 'id': image.id, 'name': image.name} %}				    
+					    	{% include 'recipie.createOrUpdate.imageLine.twig.html' with {'counter': loop.index, 'id': image.id, 'name': image.name} %}				    
 					    {% endfor %}
 				    {% endif %}				    
 				    </tbody>
@@ -83,7 +83,7 @@
 				    <tbody>
 				    {% if recipie %}
 					    {% for timer in recipie.timers %}
-					    	{% include 'recipie.createOrUpdate.timerLine.twig.html' with {'counter': loop.index0, 'id': timer.id, 'name': timer.name, 'value': timer.value} %}				    
+					    	{% include 'recipie.createOrUpdate.timerLine.twig.html' with {'counter': loop.index, 'id': timer.id, 'name': timer.name, 'value': timer.value} %}				    
 					    {% endfor %}
 				    {% endif %}
 				    </tbody>
@@ -104,7 +104,7 @@
 				<div class="ingredientGroups">			
 			    {% if recipie %}
 				    {% for ingredientGroup in recipie.ingredientGroups %}
-				    	{% include 'recipie.createOrUpdate.ingredientGroup.twig.html' with {'counter': loop.index0, 'id': ingredientGroup.id, 'name': ingredientGroup.name, 'ingredients': ingredientGroup.ingredients} %}				    
+				    	{% include 'recipie.createOrUpdate.ingredientGroup.twig.html' with {'counter': loop.index, 'id': ingredientGroup.id, 'name': ingredientGroup.name, 'ingredients': ingredientGroup.ingredients} %}				    
 				    {% endfor %}
 			    {% endif %}				    				
 				</div>
@@ -121,7 +121,7 @@
 				<div class="stepGroups">			
 			    {% if recipie %}
 				    {% for stepGroup in recipie.stepGroups %}
-				    	{% include 'recipie.createOrUpdate.stepGroup.twig.html' with {'counter': loop.index0, 'id': stepGroup.id, 'name': stepGroup.name, 'steps': stepGroup.steps} %}				    
+				    	{% include 'recipie.createOrUpdate.stepGroup.twig.html' with {'counter': loop.index, 'id': stepGroup.id, 'name': stepGroup.name, 'steps': stepGroup.steps} %}				    
 				    {% endfor %}
 			    {% endif %}				    				
 				

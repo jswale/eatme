@@ -25,7 +25,7 @@ var UnitMapping = {
 		'porc' : 'g',
 		'poisson' : 'g',
 		
-		'sel' : 'pincée',		
+		'sel' : 'pincée'
 }
 
 var RecipieManager = {
@@ -36,11 +36,11 @@ var RecipieManager = {
 			step : 0,
 			stepGroup : 0,
 			ingredient : 0,
-			ingredientGroup : 0,
+			ingredientGroup : 0
 		},
 		
 		addImage : function (image) {
-			var internal_counter = this.counter.image++;
+			var internal_counter = --this.counter.image;
 			
 			var tbody = $("div.images > table > tbody");
 			
@@ -63,7 +63,7 @@ var RecipieManager = {
 		},
 		
 		addTimer : function (timer) {
-			var internal_counter = this.counter.timer++;
+			var internal_counter = --this.counter.timer;
 			
 			var tbody = $("div.timers > table > tbody");
 			
@@ -74,7 +74,7 @@ var RecipieManager = {
 			  	counter: internal_counter,
 			  	id : timer && timer.id || -1,
 			  	name : timer && timer.name || "",
-			  	value : timer && timer.value || "",
+			  	value : timer && timer.value || ""
 			  }
 			}).done(function( data ) {
 			  var line = $(data);
@@ -87,7 +87,7 @@ var RecipieManager = {
 		},
 
 		addIngredientGroup : function(ingredientGroup) {
-			var internal_counter = this.counter.ingredientGroup++;
+			var internal_counter = --this.counter.ingredientGroup;
 			
 			$.ajax({
 			  method: "POST",
@@ -95,7 +95,7 @@ var RecipieManager = {
 			  data: { 
 			  	counter: internal_counter,
 			  	id : ingredientGroup && ingredientGroup.id || -1,
-			  	name : ingredientGroup ? ingredientGroup.name : "",
+			  	name : ingredientGroup ? ingredientGroup.name : ""
 			  }
 			}).done(function( data ) {
 			  var ingredientGroupCtn = $(data);
@@ -128,7 +128,7 @@ var RecipieManager = {
 		},
 
 		addIngredient : function(ingredientGroupId, ingredient) {
-			var internal_counter = this.counter.ingredient++;
+			var internal_counter = --this.counter.ingredient;
 			var parent = $("[data-ingredientGroup-id=" + ingredientGroupId + "]");
 			
 			var tbody = parent.find("table > tbody");
@@ -143,7 +143,7 @@ var RecipieManager = {
 			  	name : ingredient && ingredient.name || "",
 			  	quantity : ingredient && ingredient.quantity || "",
 			  	unit : ingredient && ingredient.unit || "",
-			  	ref : ingredient && ingredient.ref || "",
+			  	ref : ingredient && ingredient.ref || ""
 			  }
 			}).done(function( data ) {
 			  var line = $(data);
@@ -158,7 +158,7 @@ var RecipieManager = {
 		},		
 
 		addStepGroup : function(stepGroup) {
-			var internal_counter = this.counter.stepGroup++;
+			var internal_counter = --this.counter.stepGroup;
 			
 			$.ajax({
 			  method: "POST",
@@ -184,7 +184,7 @@ var RecipieManager = {
 		},
 		
 		addStep : function(stepGroupId, step) {
-			var internal_counter = this.counter.step++;
+			var internal_counter = --this.counter.step;
 			var parent = $("[data-stepGroup-id=" + stepGroupId + "]");
 			
 			var tbody = parent.find("table > tbody");
@@ -196,7 +196,7 @@ var RecipieManager = {
 			  	counter: internal_counter,
 			  	id : step && step.id || -1,
 			  	group : stepGroupId,
-			  	description : step && step.description || "",
+			  	description : step && step.description || ""
 			  }
 			}).done(function( data ) {
 			  var line = $(data);

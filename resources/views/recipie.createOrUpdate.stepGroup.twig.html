@@ -24,7 +24,7 @@
 				<tbody>
 		    {% if steps is defined %}
 			    {% for step in steps %}
-			    	{% include 'recipie.createOrUpdate.stepLine.twig.html' with {'counter': loop.index0, 'group': counter, 'id': step.id, 'description': step.description} %}				    
+			    	{% include 'recipie.createOrUpdate.stepLine.twig.html' with {'counter': loop.index, 'group': counter, 'id': step.id, 'description': step.description} %}				    
 			    {% endfor %}
 		    {% endif %}				   				
 				
