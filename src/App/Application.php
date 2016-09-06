@@ -10,13 +10,12 @@ use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TwigServiceProvider;
-use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\RememberMeServiceProvider;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 
 use Doctrine\ORM\Tools\Setup;
@@ -53,9 +52,9 @@ class Application extends SilexApplication
         $app['var_dir'] = $this->rootDir.'/var';
         $app['upload_dir'] = $this->rootDir.'web/upload/';
         $app['locale'] = 'fr';
-        $app['http_cache.cache_dir'] = $app->share(function (Application $app) {
+        $app['http_cache.cache_dir'] = function (Application $app) {
             return $app['var_dir'].'/http';
-        });
+        };
         $app['monolog.options'] = [
             'monolog.logfile' => $app['var_dir'].'/logs/app.log',
             'monolog.name' => 'app',
@@ -71,7 +70,6 @@ class Application extends SilexApplication
         $app->register(new HttpCacheServiceProvider());
         $app->register(new SessionServiceProvider());
         $app->register(new ValidatorServiceProvider());
-        $app->register(new UrlGeneratorServiceProvider());
 
         $app->register(new DoctrineServiceProvider());
 
@@ -108,7 +106,7 @@ class Application extends SilexApplication
 
         $app->register(new SecurityServiceProvider(), array(
             'security.firewalls' => array(
-                'admin' => array(
+                'admins' => array(
                     'pattern' => '^/',
                     'form' => array(
                         'login_path' => '/login',
@@ -120,12 +118,12 @@ class Application extends SilexApplication
                 				'key' => 'fXfTBXQx47GCVeE',
                 				'always_remember_me' => true,
                 		),
-                		'users' => $app->share(function() use ($app) {
-	                		$app['security.encoder.digest'] = $app->share(function ($app) {
-	                			return new MessageDigestPasswordEncoder();
-	                		});
+                		'users' => function() use ($app) {
+											$app['security.default_encoder'] = function ($app) {
+												return $app['security.encoder.digest'];
+											};
 	                		return new UserProvider($app);
-                		}),
+                		},
                 ),
             ),
         ));
@@ -134,17 +132,17 @@ class Application extends SilexApplication
         // throws 'InvalidArgumentException' with message 'Identifier "security.remember_me.service.secured_area" is not defined.'
         $app->register(new RememberMeServiceProvider());
 
-        $app['security.utils'] = $app->share(function ($app) {
+        $app['security.utils'] = function ($app) {
             return new AuthenticationUtils($app['request_stack']);
-        });
+        };
 
         $app->register(new TranslationServiceProvider());
-        $app['translator'] = $app->share($app->extend('translator', function ($translator, $app) {
+        $app->extend('translator', function ($translator, $app) {
             $translator->addLoader('yaml', new YamlFileLoader());
-            $translator->addResource('yaml', $this->rootDir.'/resources/translations/fr.yml', 'fr');
-            $translator->addResource('yaml', $this->rootDir.'/resources/translations/en.yml', 'en');
+//             $translator->addResource('yaml', $this->rootDir.'/resources/translations/en.yml', 'en');
+            $translator->addResource('yaml', $this->rootDir.'/resources/translations/fr.yml', 'en');
             return $translator;
-        }));
+        });
 
         $app->register(new MonologServiceProvider(), $app['monolog.options']);
 
@@ -155,7 +153,7 @@ class Application extends SilexApplication
             'twig.form.templates' => array('bootstrap_3_horizontal_layout.html.twig'),
             'twig.path' => array($this->rootDir.'/resources/views'),
         ));
-        $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
+        $app['twig'] = $app->extend('twig', function ($twig, $app) {
             $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
                 $base = $app['request_stack']->getCurrentRequest()->getBasePath();
 
@@ -165,7 +163,7 @@ class Application extends SilexApplication
             $twig->addGlobal('categories', $app['category.manager']->getAll());
 
             return $twig;
-        }));
+        });
 
        	// ManagerProvider
        	$app->register(new ManagerProvider());

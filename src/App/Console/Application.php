@@ -190,21 +190,21 @@ EOT
             ->register('fixture:loadCategories')
             ->setDescription('Chargement des catégories')
             ->setCode(function (InputInterface $input, OutputInterface $output) {
-            	$this->silexApp['db']->insert('Category', ['name' => 'Entrée']);
-            	$this->silexApp['db']->insert('Category', ['name' => 'Plat principal']);
-            	$this->silexApp['db']->insert('Category', ['name' => 'Dessert']);
-            	$this->silexApp['db']->insert('Category', ['name' => 'Accompagnement']);
-            	$this->silexApp['db']->insert('Category', ['name' => 'Amuse-gueule']);
-            	$this->silexApp['db']->insert('Category', ['name' => 'Boisson']);
-            	$this->silexApp['db']->insert('Category', ['name' => 'Confiserie']);
-            	$this->silexApp['db']->insert('Category', ['name' => 'Sauce']);
+            	$this->silexApp['category.manager']->create("Entrée");
+            	$this->silexApp['category.manager']->create("Plat principal");
+            	$this->silexApp['category.manager']->create("Dessert");
+            	$this->silexApp['category.manager']->create("Accompagnement");
+            	$this->silexApp['category.manager']->create("Amuse-gueule");
+            	$this->silexApp['category.manager']->create("Boisson");
+            	$this->silexApp['category.manager']->create("Confiserie");
+            	$this->silexApp['category.manager']->create("Sauce");
             });
 
         $this
             ->register('fixture:loadUserAdmin')
             ->setDescription('Creation du user admin')
             ->setCode(function (InputInterface $input, OutputInterface $output) {
-            	$this->silexApp['user.manager']->create("Administrator", "admin", "password", true);
+            	$this->silexApp['user.manager']->create("Administrator", "admin", true, "password");
             });
     }
 }

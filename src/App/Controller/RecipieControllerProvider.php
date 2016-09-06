@@ -2,13 +2,18 @@
 namespace App\Controller;
 
 use Silex\Application as SilexApplication;
+use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use App\Controller\BaseControllerProvider;
 use App\Domain\Category;
 
-class RecipieControllerProvider extends BaseControllerProvider {
+class RecipieControllerProvider extends BaseControllerProvider implements ControllerProviderInterface {
 
 
 	public function connect (SilexApplication $app) {
@@ -84,7 +89,7 @@ class RecipieControllerProvider extends BaseControllerProvider {
 		$controllers->get('/delete/{id}',
 				function  ($id, SilexApplication $app) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
@@ -103,7 +108,7 @@ class RecipieControllerProvider extends BaseControllerProvider {
 		$controllers->match('/edit/{id}',
 				function  ($id, SilexApplication $app, Request $request) {
 
-					if (!$app['security']->isGranted('ROLE_USER')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_USER')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
@@ -113,13 +118,13 @@ class RecipieControllerProvider extends BaseControllerProvider {
 						if(null == $recipie) {
 							return $app->redirect($app['url_generator']->generate('accessDenied'));
 						} else {
-							if (!($app['security']->isGranted('ROLE_USER') && ($app['security']->isGranted('ROLE_ADMIN') || $app['user']->getId() == $recipie->getUser()->getId() ))) {
+							if (!($app['security.authorization_checker']->isGranted('ROLE_USER') && ($app['security.authorization_checker']->isGranted('ROLE_ADMIN') || $app['user']->getId() == $recipie->getUser()->getId() ))) {
 								return $app->redirect($app['url_generator']->generate('accessDenied'));
 							}
 						}
 					}
 
-					$builder = $app['form.factory']->createBuilder('form', $recipie, array(
+					$builder = $app['form.factory']->createBuilder(FormType::class, $recipie, array(
 							'allow_extra_fields' => true,
 							'attr' => array(
 								'enctype' => "multipart/form-data",
@@ -128,14 +133,14 @@ class RecipieControllerProvider extends BaseControllerProvider {
 					->setAction($app['url_generator']->generate('recipieCreateOUpdate', array(
 							'id' => $id,
 					)))
-					->add('name', 'text', array(
+					->add('name', TextType::class, array(
 							'label' => 'Recipie.Field.name',
 					))
-					->add('description', 'textarea', array(
+					->add('description', TextareaType::class, array(
 							'label' => 'Recipie.Field.description',
 							'required' => false,
 					))
-					->add('quantity', 'text', array(
+					->add('quantity', TextType::class, array(
 							'label' => 'Recipie.Field.quantity',
 							'attr' => array(
 								'placeholder' => 'Recipie.CreateOrUpdate.Field.quantity.help'

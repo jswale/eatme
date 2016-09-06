@@ -2,8 +2,8 @@
 
 namespace App\Manager\Provider;
 
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;;
 
 use App\Manager\CategoryManager;
 use App\Manager\ImageManager;
@@ -20,38 +20,38 @@ use App\Manager\UserManager;
 class ManagerProvider implements ServiceProviderInterface
 {
 
-	public function register(Application $app)
+	public function register(Container $app)
 	{
-		$app['user.manager'] = $app->share(function($app) {
+		$app['user.manager'] = function($app) {
 			return new UserManager($app, '\App\Domain\User');
-		});
-		$app['tag.manager'] = $app->share(function($app) {
+		};
+		$app['tag.manager'] = function($app) {
 			return new TagManager($app, '\App\Domain\Tag');
-		});
-		$app['category.manager'] = $app->share(function($app) {
+		};
+		$app['category.manager'] = function($app) {
 			return new CategoryManager($app, '\App\Domain\Category');
-		});
-		$app['recipie.manager'] = $app->share(function($app) {
+		};
+		$app['recipie.manager'] = function($app) {
 			return new RecipieManager($app, '\App\Domain\Recipie');
-		});
-		$app['image.manager'] = $app->share(function($app) {
+		};
+		$app['image.manager'] = function($app) {
 			return new ImageManager($app, '\App\Domain\Image');
-		});
-		$app['timer.manager'] = $app->share(function($app) {
+		};
+		$app['timer.manager'] = function($app) {
 			return new TimerManager($app, '\App\Domain\Timer');
-		});
-		$app['ingredient.manager'] = $app->share(function($app) {
+		};
+		$app['ingredient.manager'] = function($app) {
 			return new IngredientManager($app, '\App\Domain\Ingredient');
-		});
-		$app['step.manager'] = $app->share(function($app) {
+		};
+		$app['step.manager'] = function($app) {
 			return new StepManager($app, '\App\Domain\Step');
-		});
-		$app['ingredientGroup.manager'] = $app->share(function($app) {
+		};
+		$app['ingredientGroup.manager'] = function($app) {
 			return new IngredientGroupManager($app, '\App\Domain\IngredientGroup');
-		});
-		$app['stepGroup.manager'] = $app->share(function($app) {
+		};
+		$app['stepGroup.manager'] = function($app) {
 			return new StepGroupManager($app, '\App\Domain\StepGroup');
-		});
+		};
 	}
 
 	public function boot(Application $app)

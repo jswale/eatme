@@ -2,10 +2,11 @@
 namespace App\Controller;
 
 use Silex\Application as SilexApplication;
+use Silex\Api\ControllerProviderInterface;
 
 use App\Controller\BaseControllerProvider;
 
-class AdminControllerProvider extends BaseControllerProvider {
+class AdminControllerProvider extends BaseControllerProvider implements ControllerProviderInterface {
 
 	public function connect (SilexApplication $app) {
 
@@ -14,7 +15,7 @@ class AdminControllerProvider extends BaseControllerProvider {
 		$controllers->get('/normalize',
 				function  (SilexApplication $app) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 

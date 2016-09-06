@@ -102,9 +102,9 @@
 					<button onclick="RecipieDetail.toggle()" title="Modifier" class="btn btn-default">
 						<span class="glyphicon glyphicon-scale"></span> {{ 'Recipie.Detail.updateRatio'|trans }}
 					</button>
-				</div>					 
+				</div>			
 				
-				{% if is_granted('ROLE_USER') and (recipie.author == app.security.token.username or is_granted('ROLE_ADMIN')) %}
+				{% if is_granted('ROLE_USER') and (recipie.user == global.user or is_granted('ROLE_ADMIN')) %}
 				<div class="text-center" style="padding-top:10px;">
 					<a href="{{ path('recipieCreateOUpdate', {id: recipie.id}) }}" title="Modifier" class="btn btn-primary">
 						<span class="glyphicon glyphicon-pencil"></span> {{ 'Recipie.Detail.update'|trans }}				

@@ -2,11 +2,16 @@
 namespace App\Controller;
 
 use Silex\Application as SilexApplication;
+use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Controller\BaseControllerProvider;
 
-class TagControllerProvider extends BaseControllerProvider {
+class TagControllerProvider extends BaseControllerProvider implements ControllerProviderInterface {
 
 	public function connect (SilexApplication $app) {
 
@@ -15,7 +20,7 @@ class TagControllerProvider extends BaseControllerProvider {
 		$controllers->get('/list',
 				function  (SilexApplication $app, Request $request) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
@@ -29,16 +34,16 @@ class TagControllerProvider extends BaseControllerProvider {
 		$controllers->match('/create',
 				function  (SilexApplication $app, Request $request) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
-					$form = $app['form.factory']->createBuilder('form')
+					$form = $app['form.factory']->createBuilder(FormType::class)
 					->setAction($app['url_generator']->generate('tagCreate'))
-					->add('name', 'text', array(
+					->add('name', TextType::class, array(
 							'label' => 'Tag.Field.name',
     			))
-    			->add('validate', 'submit', array (
+    			->add('validate', SubmitType::class, array (
     					'attr' => array(
     							'class' => 'btn-primary',
     					),
@@ -62,7 +67,7 @@ class TagControllerProvider extends BaseControllerProvider {
 		$controllers->get('/{id}/delete',
 				function  ($id, SilexApplication $app) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
@@ -79,7 +84,7 @@ class TagControllerProvider extends BaseControllerProvider {
 		$controllers->match('/{id}/edit',
 				function  ($id, SilexApplication $app, Request $request) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
@@ -88,15 +93,15 @@ class TagControllerProvider extends BaseControllerProvider {
 						return $app->redirect($app['url_generator']->generate('accessDenied'));
 					}
 
-					$form = $app['form.factory']->createBuilder('form', $bean)
+					$form = $app['form.factory']->createBuilder(FormType::class, $bean)
 					->setAction($app['url_generator']->generate('tagUpdate', array(
 							'id' => $id,
 					)))
-					->add('name', 'text', array(
+					->add('name', TextType::class, array(
 							'label' => 'Tag.Field.name',
 							'required' => true,
 					))
-    			->add('validate', 'submit', array (
+    			->add('validate', SubmitType::class, array (
     					'attr' => array(
     							'class' => 'btn-primary',
     					),

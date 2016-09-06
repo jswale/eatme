@@ -2,11 +2,16 @@
 namespace App\Controller;
 
 use Silex\Application as SilexApplication;
+use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use App\Controller\BaseControllerProvider;
 
-class UserControllerProvider extends BaseControllerProvider {
+class UserControllerProvider extends BaseControllerProvider implements ControllerProviderInterface {
 
 
 	public function connect (SilexApplication $app) {
@@ -16,7 +21,7 @@ class UserControllerProvider extends BaseControllerProvider {
 		$controllers->get('/list',
 				function  (SilexApplication $app, Request $request) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
@@ -30,20 +35,20 @@ class UserControllerProvider extends BaseControllerProvider {
 		$controllers->match('/myAccount',
 				function  (SilexApplication $app, Request $request) {
 
-					if (!$app['security']->isGranted('ROLE_USER')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_USER')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
 					$user = $app['user'];
 
-					$builder = $app['form.factory']->createBuilder('form', $user, array(
+					$builder = $app['form.factory']->createBuilder(FormType::class, $user, array(
 							'allow_extra_fields' => true,
 					))
 					->setAction($app['url_generator']->generate('myAccount'))
-					->add('username', 'text', array(
+					->add('username', TextType::class, array(
 							'label' => 'User.Field.username',
 					))
-					->add('name', 'text', array(
+					->add('name', TextType::class, array(
 							'label' => 'User.Field.name',
 					));
 
@@ -75,7 +80,7 @@ class UserControllerProvider extends BaseControllerProvider {
 		$controllers->match('/edit/{id}',
 				function  (SilexApplication $app, $id, Request $request) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 
@@ -87,19 +92,19 @@ class UserControllerProvider extends BaseControllerProvider {
 						}
 					}
 
-					$builder = $app['form.factory']->createBuilder('form', $user, array(
+					$builder = $app['form.factory']->createBuilder(FormType::class, $user, array(
 							'allow_extra_fields' => true,
 					))
 					->setAction($app['url_generator']->generate('userCreateOrUpdate', array(
 							'id' => $id,
 					)))
-					->add('username', 'text', array(
+					->add('username', TextType::class, array(
 							'label' => 'User.Field.username',
 					))
-					->add('name', 'text', array(
+					->add('name', TextType::class, array(
 							'label' => 'User.Field.name',
 					))
-					->add('admin', 'checkbox', array(
+					->add('admin', CheckboxType::class, array(
 							'required' => false,
 							'label' => 'User.Field.role.admin',
 					));
@@ -138,7 +143,7 @@ class UserControllerProvider extends BaseControllerProvider {
 		$controllers->get('/{id}/delete',
 				function  ($id, SilexApplication $app) {
 
-					if (!$app['security']->isGranted('ROLE_ADMIN')) {
+					if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
 						return $app->redirect($app['url_generator']->generate('login'));
 					}
 

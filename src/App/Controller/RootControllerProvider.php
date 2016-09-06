@@ -2,11 +2,12 @@
 namespace App\Controller;
 
 use Silex\Application as SilexApplication;
+use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Controller\BaseControllerProvider;
 
-class RootControllerProvider extends BaseControllerProvider {
+class RootControllerProvider extends BaseControllerProvider implements ControllerProviderInterface {
 
 	public function connect (SilexApplication $app) {
 
