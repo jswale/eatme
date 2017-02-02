@@ -218,8 +218,8 @@ class RecipieControllerProvider extends BaseControllerProvider implements Contro
 
 						if(array_key_exists("tags", $data)) {
 							$tags = trim($data['tags']);
-							if(!empty(trim($data['tags']))) {
-								$tags = split(",", $tags);
+							if(!empty($tags)) {
+								$tags = explode(",", $tags);
 								foreach($tags as $tagName) {
 									$tagName = trim($tagName);
 									$tag = $tagManager->getByName($tagName);

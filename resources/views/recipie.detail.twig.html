@@ -3,6 +3,42 @@
 
 {% set mainNavItem = 'recipies' %} 
 
+{% set metas = {
+	'og:type'  								: 'article', 
+	'og:title' 								: recipie.name,
+	'og:description'					: recipie.description|default(recipie.name),
+	'og:url'   								: url('recipieDetail', {id: recipie.id, name: recipie.cleanName})
+} %}
+
+{% if not recipie.images is empty %}	
+  {% set recipieImage = recipie.images|last %}
+  {% set recipieImageUrl %}{{ url('homepage') }}upload/images/{{recipieImage.id}}.{{recipieImage.extension}}{% endset %}
+  {% set metas = metas|merge({'og:image': recipieImageUrl }) %}  
+{% endif %}
+
+{% if not recipie.tags is empty %}
+  {% set tags = [] %}
+	{% for tag in recipie.tags %}
+  	{% set tags = tags|merge([tag.name]) %}  
+  {% endfor %}
+  {% set metas = metas|merge({'og:tag': tags|join(',') }) %}  
+{% endif %}
+
+{# Article metadata #}
+{% set metas = metas|merge({
+	'article:published_time'  : recipie.createDate|date(constant('DATE_ATOM')),
+	'article:modified_time'  : recipie.updateDate|date(constant('DATE_ATOM')),
+	'article:section'					: recipie.category.name
+}) %}
+
+{% if recipie.user %} 
+  {% set metas = metas|merge({'article:publisher': recipie.user.name }) %}
+{% else %}    
+  {% set metas = metas|merge({'article:publisher': recipie.author }) %}
+{% endif %}
+
+
+
 {% block breadcrumb %}
 <ol class="breadcrumb">
   <li><a href="{{ path('homepage') }}">{{ 'Homepage'|trans}}</a></li>
@@ -102,9 +138,9 @@
 					<button onclick="RecipieDetail.toggle()" title="Modifier" class="btn btn-default">
 						<span class="glyphicon glyphicon-scale"></span> {{ 'Recipie.Detail.updateRatio'|trans }}
 					</button>
-				</div>			
+				</div>					 
 				
-				{% if is_granted('ROLE_USER') and (recipie.user == global.user or is_granted('ROLE_ADMIN')) %}
+				{% if is_granted('ROLE_USER') and (recipie.author == app.user.username or is_granted('ROLE_ADMIN')) %}
 				<div class="text-center" style="padding-top:10px;">
 					<a href="{{ path('recipieCreateOUpdate', {id: recipie.id}) }}" title="Modifier" class="btn btn-primary">
 						<span class="glyphicon glyphicon-pencil"></span> {{ 'Recipie.Detail.update'|trans }}				

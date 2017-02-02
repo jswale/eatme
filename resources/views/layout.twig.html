@@ -10,10 +10,16 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/eatme.css') }}" rel="stylesheet">
-    <style>
+{% set metas = {
+	'og:type'	: 'website',
+	'og:site_name' : 'SiteTitle'|trans
+}|merge(metas|default({})) %}
 
-    </style>
-
+{% if metas is defined %}
+	{% for key, value in metas if '' != value %}
+	  <meta property="{{ key }}" content="{{ value }}" />
+	{% endfor %}
+{% endif %}
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
